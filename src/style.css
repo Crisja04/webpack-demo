@@ -1,4 +1,11 @@
+@font-face {
+  font-family: "Lemonada";
+  src: url("./fonts/Lemonada-VariableFont_wght.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
 .hello {
   color: red;
+  font-family: "Lemonada";
   background: url("./icon.jpg");
 }
