@@ -3,6 +3,9 @@ import './style.css';
 import Icon from './icon.jpg';
 import Data from './data/data.xml';
 import Notes from './data/data.csv';
+import toml from './data/data.toml';
+import yaml from './data/data.yaml';
+import json from './data/data.json5';
 
 function component() {
     const element = document.createElement('div');
@@ -16,9 +19,20 @@ function component() {
     myIcon.src = Icon;
 
     element.appendChild(myIcon);
-    
+    // Data output
     console.log(Data);
     console.log(Notes);
+
+    // Json files data output
+    console.log(toml.title);
+    console.log(toml.owner.name);
+
+    console.log(yaml.title);
+    console.log(yaml.owner.name);
+
+    console.log(json.title);
+    console.log(json.owner.name);
+
     return element;
 }
   document.body.appendChild(component());
