@@ -8,8 +8,9 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    index: { import: './src/index.js', dependOn: 'shared'},
+    another: { import: './src/another-module.js', dependOn: 'shared'},
+    shared: 'lodash',
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -20,33 +21,11 @@ module.exports = {
     publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
   },
-  module: {
-    rules: [
-      {
-        test: /\.toml$/,
-        type: 'json',
-        parser: {
-          parse: toml.parse
-        }
-      },
-      {
-        test: /\.yaml$/,
-        type: 'json',
-        parser: {
-          parse: yaml.parse
-        }
-      },
-      {
-        test: /\.json5$/,
-        type: 'json',
-        parser: {
-          parse:json5.parse
-        }
-      }
-    ],
-  },
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin([])],
+    splitChunks: {
+      chunks: 'all',
+    }
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
