@@ -4,6 +4,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ASSET_PATH = process.env.ASSET_PATH || '/'; // use in public path for terser
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -26,8 +27,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
-    new HtmlWebpackPlugin({
-      title: 'Caching',
+    new webpack.ProvidePlugin({
+      _: 'lodash',
     }),
   ],
 };
