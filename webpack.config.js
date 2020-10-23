@@ -28,7 +28,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
     new webpack.ProvidePlugin({
-      _: 'lodash',
+      join: 'lodash',
     }),
   ],
 };
