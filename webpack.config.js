@@ -1,22 +1,25 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 module.exports = {
-  entry: './src/index.ts',
-  devtool: 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
+  entry: {
+    app: './src/index.js',
+    print: './src/print.js',
   },
-  resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
-  },
+  devServer: {
+      writeToDisk: true,
+    },
+  plugins: [
+    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+     title: 'Output Management',
+    }),
+  ],
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };
