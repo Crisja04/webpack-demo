@@ -1,10 +1,13 @@
-function getComponent() {
-    return import('lodash').then(({ default: _ }) => {
-      const element = document.createElement('div');
-      element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-      return element;
-    }).catch(error => 'An error ocurred while loading the component');
+import Print from './print.js';
+import _ from 'lodash';
+function component() {
+  const element = document.createElement('div');
+
+  // Lodash, now imported by this script
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  element.onclick = Print.bind(null, 'Hello webpack!');
+
+  return element;
 }
-getComponent().then(component => {
-  document.body.appendChild(component);
-})
+
+document.body.appendChild(component());

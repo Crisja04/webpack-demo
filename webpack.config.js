@@ -6,21 +6,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    index:'./src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-  },
+  entry: './src/index.js',
   output: {
     filename: '[name].[contenthash].js',
-    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin([])],
+    runtimeChunk: 'single',
+    moduleIds: 'deterministic',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
