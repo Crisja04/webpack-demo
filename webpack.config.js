@@ -15,18 +15,17 @@ module.exports = {
     contentBase: './dist',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].js',
     publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin([])],
-    
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
     new HtmlWebpackPlugin({
-      title: 'Output Management',
+      title: 'Caching',
     }),
   ],
 };
