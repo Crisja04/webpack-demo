@@ -12,23 +12,22 @@ module.exports = {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  optimization: {
-    runtimeChunk: 'single',
-    moduleIds: 'deterministic',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
+  module: {
+    rules: [
+      {
+        test: require.resolve('./src/index.js'),
+        use: 'imports-loader?this=>window',
       },
-    },
+      {
+        test: require.resolve('./src/globals.js'),
+        use: 'exports-loader?file,parse=helpers.parse',
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false}),
     new webpack.ProvidePlugin({
-      join: 'lodash',
+      join: ['lodash', 'join'],
     }),
   ],
 };
